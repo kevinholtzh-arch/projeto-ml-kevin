@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ML Predictor</title>
+</head>
+<body>
+  <h2>Teste do Modelo</h2>
+
+  <button onclick="predict()">Prever</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function predict() {
+      fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          data: Array(30).fill(1)
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("resultado").innerText =
+          "Resultado: " + data.prediction;
+      });
+    }
+  </script>
+</body>
+</html>
